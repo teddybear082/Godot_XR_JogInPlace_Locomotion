@@ -56,20 +56,27 @@ var _last_step_max := 0.0;
 var move_checker = null;
 
 ##New TB code, create global variables for ARVROrigin, Camera and Controllers in case needed in code.  At some point should make these export node variables instead for more modularity.
-onready var fp_controller = get_parent()
-onready var vr_camera = get_parent().get_node("ARVRCamera")
-onready var l_controller = get_parent().get_node("ARVRController_Left")
-onready var r_controller = get_parent().get_node("ARVRController_Right")
-onready var player_body = get_parent().get_node("PlayerBody")
+export (NodePath) var fpcontroller_path = null
+export (NodePath) var arvrcamera_path = null
+export (NodePath) var l_controller_path = null
+export (NodePath) var r_controller_path = null
+
 
 signal step_low;
 signal step_high;
 
+var fp_controller = null
+var vr_camera = null
+var l_controller = null
+var r_controller = null
+var player_body = null
 
 func _ready():
-	#TB Code Move these lines to end to check errors at some point like in other movement providers
-	#if (not get_parent() is ARVROrigin):
-	#	vr.log_error("Feature_StickMovement: parent is not ARVROrigin");
+	fp_controller = get_node(fpcontroller_path)
+	vr_camera = get_node(arvrcamera_path)
+	l_controller = get_node("l_controller_path")
+	r_controller = get_node("r_controller_path")
+	player_body = fp_controller.get_node("PlayerBody")
 	
 	_height_ringbuffer.resize(_height_ringbuffer_size);
 	_current_height_estimate = player_body.camera_node.transform.origin.y + player_body.player_radius
@@ -192,7 +199,7 @@ var num_steps_till_jogging := 2;
 var _continous_step_count := 0;
 const _time_until_continous_step_reset = 1.0; #was 2.0
 
-# indicator to check if currenlty in a moving state (means steps detected)
+# indicator to check if currently in a moving state (means steps detected)
 # not actually moving; this depends still on the move_cheker
 var is_moving = false;
 
