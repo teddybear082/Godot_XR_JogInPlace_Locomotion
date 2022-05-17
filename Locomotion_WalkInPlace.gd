@@ -16,7 +16,7 @@ class_name Locomotion_WalkInPlace
 extends MovementProvider
 
 
-export var active := true;
+
 
 ## Movement provider order
 export var order := 5
