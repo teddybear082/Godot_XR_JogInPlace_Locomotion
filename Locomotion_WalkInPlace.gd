@@ -21,6 +21,8 @@ extends MovementProvider
 ## Movement provider order
 export var order := 5
 
+
+
 const _height_ringbuffer_size := 15; # full ring buffer is 15; lower latency can be achieved by accessing only a subset
 var _height_ringbuffer_pos := 0;
 var _height_ringbuffer := Array()
@@ -236,7 +238,7 @@ func _move(dt):
 
 #Add'l TB note - maybe this should be physics_process??
 func _process(dt):
-	if (!active): return;
+	if (!enabled): return;
 		
 	var headset_height = player_body.camera_node.transform.origin.y + player_body.player_radius;
 	#TB Code: if the above equation doesn't work, note this used to be a reference to 
