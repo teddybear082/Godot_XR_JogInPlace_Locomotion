@@ -76,8 +76,8 @@ var player_body = null
 func _ready():
 	fp_controller = get_node(fpcontroller_path)
 	vr_camera = get_node(arvrcamera_path)
-	l_controller = get_node("l_controller_path")
-	r_controller = get_node("r_controller_path")
+	l_controller = get_node(l_controller_path)
+	r_controller = get_node(r_controller_path)
 	player_body = fp_controller.get_node("PlayerBody")
 	
 	_height_ringbuffer.resize(_height_ringbuffer_size);
